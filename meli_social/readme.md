@@ -11,7 +11,7 @@ sucess -> [201]
 fail -> [400]
 
 ----
-quantidade,Usuarios  que seguem vendedor
+Quantidade,Usuarios  que seguem vendedor
 request:
 [GET] "{idSeller}/followers/?List=False;"
 response:
