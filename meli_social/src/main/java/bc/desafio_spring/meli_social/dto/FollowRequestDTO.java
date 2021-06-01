@@ -2,7 +2,7 @@ package bc.desafio_spring.meli_social.dto;
 
 import java.util.UUID;
 
-public class FollowResquestDTO {
+public class FollowRequestDTO {
     private UUID idSeller;
     
     public UUID getIdSeller() {

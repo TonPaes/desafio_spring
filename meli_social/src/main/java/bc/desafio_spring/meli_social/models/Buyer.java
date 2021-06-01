@@ -24,6 +24,7 @@ public class Buyer {
         inverseJoinColumns = @JoinColumn(name = "buyer_id") )
     Set<Seller> sellerSet;
 
+    private String name;
 
     public UUID getId() {
         return id;
@@ -31,5 +32,15 @@ public class Buyer {
     public void setId(UUID id) {
         this.id = id;
     }
+    public Set<Seller> getSellerSet() {
+        return sellerSet;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
 }
   

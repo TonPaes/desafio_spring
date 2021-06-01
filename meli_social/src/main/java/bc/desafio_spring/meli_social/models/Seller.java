@@ -22,5 +22,7 @@ public class Seller {
        return id;
    }
 
-    
+    public Set<Buyer> getBuyerSet() {
+        return buyerSet;
+    }   
 }
