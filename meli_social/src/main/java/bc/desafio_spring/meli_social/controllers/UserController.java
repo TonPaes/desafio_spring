@@ -47,4 +47,8 @@ public class UserController {
 	public ResponseEntity<FollowersListResponseDTO> followerList(@PathVariable UUID userId){
 		return ResponseEntity.status(200).body(buyerService.listFollowers(userId));
 	}
+	@GetMapping("{userId}/followed/list")
+	public ResponseEntity<FollowingListResponseDTO> followingList(@PathVariable UUID userId){
+		return ResponseEntity.status(200).body(buyerService.listFollowing(userId));
+	}
 }

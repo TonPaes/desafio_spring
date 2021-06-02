@@ -1,6 +1,5 @@
 package bc.desafio_spring.meli_social.dto;
 
-import java.lang.reflect.Constructor;
 import java.util.UUID;
 
 public class FollowersCountResponseDTO {

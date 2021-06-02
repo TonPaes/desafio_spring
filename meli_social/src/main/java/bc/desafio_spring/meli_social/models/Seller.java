@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Seller {
@@ -20,10 +21,12 @@ public class Seller {
     @ManyToMany(targetEntity = Buyer.class)
     Set<Buyer> buyerSet = new HashSet<>();
     
-   public UUID getId() {
-       return id;
-   }
+    @OneToMany(targetEntity = Product.class)
+    Set<Product> products = new HashSet<>();
 
+    public UUID getId() {
+       return id;
+    }
     public Set<Buyer> getBuyerSet() {
         return buyerSet;
     }
@@ -32,5 +35,15 @@ public class Seller {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public void setBuyerSet(Set<Buyer> buyerSet) {
+        this.buyerSet = buyerSet;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

@@ -1,18 +1,17 @@
 package bc.desafio_spring.meli_social.services;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bc.desafio_spring.meli_social.dto.CreateBuyerRequestDTO;
 import bc.desafio_spring.meli_social.dto.FollowersCountResponseDTO;
 import bc.desafio_spring.meli_social.dto.FollowersListResponseDTO;
+import bc.desafio_spring.meli_social.dto.FollowingListResponseDTO;
 import bc.desafio_spring.meli_social.models.Buyer;
 import bc.desafio_spring.meli_social.models.Seller;
 import bc.desafio_spring.meli_social.repositories.BuyerRepository;
@@ -20,7 +19,7 @@ import bc.desafio_spring.meli_social.repositories.SellerRepository;
 
 
 @Service
-public class BuyerService {
+public class UserService {
     @Autowired
     private BuyerRepository buyerRepository;
     @Autowired
@@ -89,6 +88,22 @@ public class BuyerService {
             sellerId,
             seller.getName(),
             followersList
+        );
+
+    }
+
+    public FollowingListResponseDTO listFollowing(UUID buyerId){
+        Optional<Buyer> optBuyer = buyerRepository.findById(buyerId);
+        Buyer buyer = optBuyer.get();
+
+        List<Seller> followingList = new ArrayList<>(buyer.getSellerSet());
+        for (Seller seller : followingList) {
+            seller.setBuyerSet(null);
+        }
+        return new FollowingListResponseDTO(
+            buyerId,
+            buyer.getName(),
+            followingList
         );
 
     }
