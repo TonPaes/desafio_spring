@@ -1,5 +1,6 @@
 package bc.desafio_spring.meli_social.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class Buyer {
         name = "following",
         joinColumns = @JoinColumn(name = "seller_id"),
         inverseJoinColumns = @JoinColumn(name = "buyer_id") )
-    Set<Seller> sellerSet;
+    Set<Seller> sellerSet = new HashSet<>();
 
     private String name;
 
@@ -40,6 +41,9 @@ public class Buyer {
     }
     public String getName() {
         return name;
+    }
+    public void setSellerSet(Set<Seller> sellerSet) {
+        this.sellerSet = sellerSet;
     }
 
 }
