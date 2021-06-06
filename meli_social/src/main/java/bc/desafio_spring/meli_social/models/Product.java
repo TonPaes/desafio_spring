@@ -7,11 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
+
 @Entity
 public class Product {
     @ManyToOne
     @JoinColumn(name="seller_id")
     private Seller seller;
+
 
     private UUID id;
     private Date date;
@@ -22,6 +25,22 @@ public class Product {
     private String notes;
     private int category;
     private double price;
+
+    public Product(
+        NewproductRequestDTO newProd
+    ){
+        this.id = newProd.getPostId();
+        this.date = newProd.getDate();
+        this.productName = newProd.getDetail().getProductName();
+        this.type = newProd.getDetail().getType();
+        this.brand = newProd.getDetail().getBrand();
+        this.color = newProd.getDetail().getColor();
+        this.notes = newProd.getDetail().getNotes();
+        this.type = newProd.getDetail().getType();
+        this.price = newProd.getPrice();
+        this.category = newProd.getCategory();
+        
+    }
 
     public String getBrand() {
         return brand;

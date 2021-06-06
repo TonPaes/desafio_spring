@@ -1,6 +1,7 @@
 package bc.desafio_spring.meli_social.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.UUID;
 
 import bc.desafio_spring.meli_social.dto.*;
-import bc.desafio_spring.meli_social.services.BuyerService;
+import bc.desafio_spring.meli_social.services.UserService;
 
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    BuyerService buyerService = new BuyerService();
-
+	UserService userService = new UserService();
+	
 	@PostMapping("/")
 	public ResponseEntity<String> createBuyer(@RequestBody CreateBuyerRequestDTO createBuyerRequestDTO){
 		return ResponseEntity.status(201).body("User created with ID: " +
-											   buyerService.createSeller(createBuyerRequestDTO)
+											   userService.createSeller(createBuyerRequestDTO)
 		);
 	}
 
@@ -32,7 +33,7 @@ public class UserController {
     public ResponseEntity<String > follow(
 									@PathVariable UUID userId, 
                                     @PathVariable UUID sellerUserId) {
-        if (buyerService.follow(sellerUserId, userId))
+        if (userService.follow(sellerUserId, userId))
             return ResponseEntity.status(200).body("follow added");
 		else
 			return ResponseEntity.status(400).body("did not followed");
@@ -40,15 +41,26 @@ public class UserController {
 
 	@GetMapping("{userId}/followers/count")
 	public ResponseEntity<FollowersCountResponseDTO> followerCount(@PathVariable UUID userId){
-		return ResponseEntity.status(200).body(buyerService.countFollowers(userId));
+		return ResponseEntity.status(200).body(userService.countFollowers(userId));
 	}
 
 	@GetMapping("{userId}/followers/list")
-	public ResponseEntity<FollowersListResponseDTO> followerList(@PathVariable UUID userId){
-		return ResponseEntity.status(200).body(buyerService.listFollowers(userId));
+	public ResponseEntity<FollowersListResponseDTO> followerList(
+														@PathVariable UUID userId,
+														@RequestParam String order){
+		return ResponseEntity.status(200).body(userService.listFollowers(userId, order));
 	}
 	@GetMapping("{userId}/followed/list")
-	public ResponseEntity<FollowingListResponseDTO> followingList(@PathVariable UUID userId){
-		return ResponseEntity.status(200).body(buyerService.listFollowing(userId));
+	public ResponseEntity<FollowingListResponseDTO> followingList(
+														@PathVariable UUID userId,
+														@RequestParam String order){
+		return ResponseEntity.status(200).body(userService.listFollowing(userId, order));
+	}
+	@PostMapping("{userId}/unfollow/{sellerUserId}")
+    public ResponseEntity<String > unfollow(
+									@PathVariable UUID userId, 
+                                    @PathVariable UUID sellerUserId) {
+    	userService.unfollow(userId, sellerUserId);							
+		return ResponseEntity.status(200).body("");
 	}
 }

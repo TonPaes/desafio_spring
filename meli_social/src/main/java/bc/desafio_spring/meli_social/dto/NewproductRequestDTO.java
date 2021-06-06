@@ -3,15 +3,31 @@ package bc.desafio_spring.meli_social.dto;
 import java.util.Date;
 import java.util.UUID;
 
+import bc.desafio_spring.meli_social.models.Product;
+
 public class NewproductRequestDTO {
     private UUID userId;
     private UUID postId;
     private Date date;
     private ProductDetailDTO detail;
-    private String category;
+    private int category;
     private Double price;
 
-    public String getCategory() {
+    public NewproductRequestDTO(
+        Product newProd
+    ){
+        this.postId = newProd.getId();
+        this.userId = newProd.getSeller().getId();
+        this.date = newProd.getDate();
+        this.detail.setProductName(newProd.getProductName());
+        this.detail.setType(newProd.getType());
+        this.detail.setBrand(newProd.getBrand());
+        this.detail.setColor(newProd.getColor());
+        this.detail.setNotes(newProd.getNotes());
+        this.detail.setType(newProd.getType());
+    }
+
+    public int getCategory() {
         return category;
     }
     public Date getDate() {
@@ -29,7 +45,7 @@ public class NewproductRequestDTO {
     public UUID getUserId() {
         return userId;
     }
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
     public void setDate(Date date) {
@@ -47,4 +63,5 @@ public class NewproductRequestDTO {
     public void setUserId(UUID userId) {
         this.userId = userId;
     }
+
 }

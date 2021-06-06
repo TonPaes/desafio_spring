@@ -43,4 +43,8 @@ public class ProductDetailDTO {
     public void setType(String type) {
         this.type = type;
     }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    
 }

@@ -76,7 +76,7 @@ public class UserService {
                                              seller.getName(),
                                              toCount);
     }
-    public FollowersListResponseDTO listFollowers(UUID sellerId){
+    public FollowersListResponseDTO listFollowers(UUID sellerId, String order){
         Optional<Seller> optSeller = sellerRepository.findById(sellerId);
         Seller seller = optSeller.get();
 
@@ -84,6 +84,12 @@ public class UserService {
         for (Buyer buyer : followersList) {
             buyer.setSellerSet(null);
         }
+
+        if (order.equals("asc"))
+            followersList.sort((f1, f2)-> f1.getName().compareTo(f2.getName()));
+        else if(order.equals("desc"))
+            followersList.sort((f2, f1)-> f1.getName().compareTo(f2.getName()));        
+
         return new FollowersListResponseDTO(
             sellerId,
             seller.getName(),
@@ -92,7 +98,7 @@ public class UserService {
 
     }
 
-    public FollowingListResponseDTO listFollowing(UUID buyerId){
+    public FollowingListResponseDTO listFollowing(UUID buyerId, String order){
         Optional<Buyer> optBuyer = buyerRepository.findById(buyerId);
         Buyer buyer = optBuyer.get();
 
@@ -100,6 +106,12 @@ public class UserService {
         for (Seller seller : followingList) {
             seller.setBuyerSet(null);
         }
+
+        if (order.equals("asc"))
+            followingList.sort((f1, f2)-> f1.getName().compareTo(f2.getName()));
+        else if(order.equals("desc"))
+           followingList.sort((f2, f1)-> f1.getName().compareTo(f2.getName()));
+
         return new FollowingListResponseDTO(
             buyerId,
             buyer.getName(),
@@ -107,5 +119,21 @@ public class UserService {
         );
 
     }
+    public boolean unfollow(UUID idFollower, UUID idSeller){
+        Buyer follower = new Buyer();
+        Optional<Buyer> optFollower = buyerRepository.findById(idFollower);
+        
+        follower = optFollower.get();
 
+        Optional<Seller> optSeller = sellerRepository.findById(idSeller);
+        Seller seller = optSeller.get();
+
+        seller.getBuyerSet().remove(follower);
+        follower.getSellerSet().remove(seller);
+
+        buyerRepository.save(follower);
+        sellerRepository.save(seller);
+
+        return true;
+    }
 }
