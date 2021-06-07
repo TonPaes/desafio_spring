@@ -6,10 +6,13 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bc.desafio_spring.meli_social.dto.NewPromoProductRequestDTO;
 import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
 import bc.desafio_spring.meli_social.dto.ProductListResponseDTO;
+import bc.desafio_spring.meli_social.dto.PromProductsCountResponseDTO;
 import bc.desafio_spring.meli_social.models.Buyer;
 import bc.desafio_spring.meli_social.models.Product;
+import bc.desafio_spring.meli_social.models.PromProduct;
 import bc.desafio_spring.meli_social.models.Seller;
 import bc.desafio_spring.meli_social.repositories.BuyerRepository;
 import bc.desafio_spring.meli_social.repositories.SellerRepository;
@@ -52,6 +55,48 @@ public class ProductService {
             response.getProducts().sort(
                 (p2, p1) -> p1.getDate().compareTo(p2.getDate())
             );
+        
+        return response;
+    }
+
+    public void newPromoPost(NewPromoProductRequestDTO newPromProd){
+        Optional<Seller> optSeller = sellerRepository.findById(newPromProd.getUserId());
+        Seller seller = optSeller.get();
+
+        PromProduct prod = new PromProduct(newPromProd); 
+
+        seller.getPromProducts().add(prod);
+        sellerRepository.save(seller);
+    }
+
+    public PromProductsCountResponseDTO PromProdCount(UUID sellerId){
+        Optional<Seller> optSeller = sellerRepository.findById(sellerId);
+        Seller seller = optSeller.get();
+
+        PromProductsCountResponseDTO ppCount = new PromProductsCountResponseDTO();
+
+        ppCount.setUserID(seller.getId());
+        ppCount.setPromoProductsCount(seller.getPromProducts().size());
+        ppCount.setUserName(seller.getName());
+
+        return ppCount;
+        
+
+    }
+
+    public ProductListResponseDTO listFollowedProducts(UUID userId){
+        Optional<Buyer> optBuyer = buyerRepository.findById(userId);
+        Buyer user = optBuyer.get();
+
+        ProductListResponseDTO response = new ProductListResponseDTO();
+
+        response.setUserId(user.getId());
+
+        for (Seller followedSeller : user.getSellerSet()) {
+            for (Product product : followedSeller.getProducts()) {
+                response.addProducts(new NewproductRequestDTO(product));
+            }
+        }
         
         return response;
     }

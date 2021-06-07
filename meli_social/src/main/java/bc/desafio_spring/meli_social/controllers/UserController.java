@@ -31,8 +31,8 @@ public class UserController {
 
     @PostMapping("{userId}/follow/{sellerUserId}")
     public ResponseEntity<String > follow(
-									@PathVariable UUID userId, 
-                                    @PathVariable UUID sellerUserId) {
+										  @PathVariable UUID userId, 
+                                          @PathVariable UUID sellerUserId) {
         if (userService.follow(sellerUserId, userId))
             return ResponseEntity.status(200).body("follow added");
 		else
@@ -46,20 +46,23 @@ public class UserController {
 
 	@GetMapping("{userId}/followers/list")
 	public ResponseEntity<FollowersListResponseDTO> followerList(
-														@PathVariable UUID userId,
-														@RequestParam String order){
+				@PathVariable UUID userId,
+				@RequestParam String order)
+		{
 		return ResponseEntity.status(200).body(userService.listFollowers(userId, order));
 	}
 	@GetMapping("{userId}/followed/list")
 	public ResponseEntity<FollowingListResponseDTO> followingList(
-														@PathVariable UUID userId,
-														@RequestParam String order){
+				@PathVariable UUID userId,
+				@RequestParam String order)
+		{
 		return ResponseEntity.status(200).body(userService.listFollowing(userId, order));
 	}
 	@PostMapping("{userId}/unfollow/{sellerUserId}")
     public ResponseEntity<String > unfollow(
-									@PathVariable UUID userId, 
-                                    @PathVariable UUID sellerUserId) {
+											@PathVariable UUID userId, 
+                                    		@PathVariable UUID sellerUserId)
+		{
     	userService.unfollow(userId, sellerUserId);							
 		return ResponseEntity.status(200).body("");
 	}

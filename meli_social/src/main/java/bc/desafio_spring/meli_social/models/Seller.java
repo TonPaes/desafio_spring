@@ -24,6 +24,9 @@ public class Seller {
     @OneToMany(targetEntity = Product.class)
     Set<Product> products = new HashSet<>();
 
+    @OneToMany(targetEntity = PromProduct.class)
+    Set<PromProduct> promProducts = new HashSet<>(); 
+
     public UUID getId() {
        return id;
     }
@@ -45,5 +48,11 @@ public class Seller {
     }
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+    public void setPromProducts(Set<PromProduct> promProducts) {
+        this.promProducts = promProducts;
+    }
+    public Set<PromProduct> getPromProducts() {
+        return promProducts;
     }
 }

@@ -1,6 +1,5 @@
 package bc.desafio_spring.meli_social.dto;
 
-import java.util.Set;
 import java.util.UUID;
 
 public class ProductDetailDTO {

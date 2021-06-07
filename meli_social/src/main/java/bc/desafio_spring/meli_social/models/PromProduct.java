@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import bc.desafio_spring.meli_social.dto.NewPromoProductRequestDTO;
 import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
 
 @Entity
-public class Product {
+public class PromProduct {
+
     @ManyToOne
     @JoinColumn(name="seller_id")
     private Seller seller;
@@ -26,9 +28,11 @@ public class Product {
     private String notes;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount; 
 
-    public Product(
-        NewproductRequestDTO newProd
+    public PromProduct(
+        NewPromoProductRequestDTO newProd
     ){
         this.id = newProd.getPostId();
         this.date = newProd.getDate();
@@ -40,7 +44,9 @@ public class Product {
         this.type = newProd.getDetail().getType();
         this.price = newProd.getPrice();
         this.category = newProd.getCategory();
-
+        this.hasPromo = true;
+        this.discount = newProd.getDiscount();
+        
     }
 
     public String getBrand() {
@@ -86,5 +92,9 @@ public class Product {
     }public void setType(String type) {
         this.type = type;
     }
-
+    public double getDiscount() {
+        return discount;
+    }public void setDiscount(double discount) {
+        this.discount = discount;
+    }
 }
