@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import bc.desafio_spring.meli_social.dto.NewPromoProductRequestDTO;
 import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
 import bc.desafio_spring.meli_social.dto.ProductListResponseDTO;
+import bc.desafio_spring.meli_social.dto.PromProductListResponseDTO;
 import bc.desafio_spring.meli_social.dto.PromProductsCountResponseDTO;
 import bc.desafio_spring.meli_social.models.Buyer;
 import bc.desafio_spring.meli_social.models.Product;
@@ -84,18 +85,16 @@ public class ProductService {
 
     }
 
-    public ProductListResponseDTO listFollowedProducts(UUID userId){
-        Optional<Buyer> optBuyer = buyerRepository.findById(userId);
-        Buyer user = optBuyer.get();
+    public PromProductListResponseDTO listFollowedProducts(UUID userId){
+        Optional<Seller> optSeller = sellerRepository.findById(userId);
+        Seller user = optSeller.get();
 
-        ProductListResponseDTO response = new ProductListResponseDTO();
+        PromProductListResponseDTO response = new PromProductListResponseDTO();
 
         response.setUserId(user.getId());
 
-        for (Seller followedSeller : user.getSellerSet()) {
-            for (Product product : followedSeller.getProducts()) {
-                response.addProducts(new NewproductRequestDTO(product));
-            }
+        for (PromProduct product : user.getPromProducts()) {
+            response.getProducts().add(new NewPromoProductRequestDTO(product));
         }
         
         return response;

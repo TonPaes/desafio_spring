@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import bc.desafio_spring.meli_social.dto.NewPromoProductRequestDTO;
-import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
 
 @Entity
 public class PromProduct {

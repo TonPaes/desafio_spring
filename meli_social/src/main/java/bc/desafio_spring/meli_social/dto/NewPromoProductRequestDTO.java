@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import bc.desafio_spring.meli_social.models.Product;
+import bc.desafio_spring.meli_social.models.PromProduct;
 
 public class NewPromoProductRequestDTO {
     private UUID userId;
@@ -16,7 +17,7 @@ public class NewPromoProductRequestDTO {
     private Double discount;
 
     public NewPromoProductRequestDTO(
-        Product newProd
+        PromProduct newProd
     ){
         this.postId = newProd.getId();
         this.userId = newProd.getSeller().getId();
