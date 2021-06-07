@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bc.desafio_spring.meli_social.dto.NewPromoProductRequestDTO;
 import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
-import bc.desafio_spring.meli_social.dto.ProductDetailDTO;
 import bc.desafio_spring.meli_social.dto.ProductListResponseDTO;
 import bc.desafio_spring.meli_social.dto.PromProductsCountResponseDTO;
 import bc.desafio_spring.meli_social.services.ProductService;

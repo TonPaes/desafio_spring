@@ -96,4 +96,7 @@ public class PromProduct {
     }public void setDiscount(double discount) {
         this.discount = discount;
     }
+    public boolean getHasPromo(){
+        return this.hasPromo;
+    }
 }

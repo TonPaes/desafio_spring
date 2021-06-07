@@ -3,8 +3,6 @@ package bc.desafio_spring.meli_social.dto;
 import java.util.List;
 import java.util.UUID;
 
-import bc.desafio_spring.meli_social.models.PromProduct;
-
 public class PromProductListResponseDTO {
     private UUID userId;
     private String userName;

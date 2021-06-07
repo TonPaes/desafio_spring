@@ -3,7 +3,6 @@ package bc.desafio_spring.meli_social.dto;
 import java.util.Date;
 import java.util.UUID;
 
-import bc.desafio_spring.meli_social.models.Product;
 import bc.desafio_spring.meli_social.models.PromProduct;
 
 public class NewPromoProductRequestDTO {
