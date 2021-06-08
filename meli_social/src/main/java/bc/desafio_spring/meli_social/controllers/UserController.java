@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.UUID;
 
 import bc.desafio_spring.meli_social.dto.*;
-import bc.desafio_spring.meli_social.services.UserService;
+import bc.desafio_spring.meli_social.services.UserServiceImpl;
 
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-	UserService userService = new UserService();
+	UserService userService = new UserServiceImpl();
 	
 	@PostMapping("/")
 	public ResponseEntity<String> createBuyer(@RequestBody CreateBuyerRequestDTO createBuyerRequestDTO){

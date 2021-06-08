@@ -25,7 +25,10 @@ public class Seller {
     Set<Product> products = new HashSet<>();
 
     @OneToMany(targetEntity = PromProduct.class)
-    Set<PromProduct> promProducts = new HashSet<>(); 
+    Set<PromProduct> promProducts = new HashSet<>();
+
+    
+    private UUID buyerUserId;
 
     public UUID getId() {
        return id;
@@ -54,5 +57,11 @@ public class Seller {
     }
     public Set<PromProduct> getPromProducts() {
         return promProducts;
+    }
+    public UUID getBuyerUserId() {
+        return buyerUserId;
+    }
+    public void setBuyerUserId(UUID buyerUserId) {
+        this.buyerUserId = buyerUserId;
     }
 }

@@ -14,14 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import bc.desafio_spring.meli_social.dto.NewPromoProductRequestDTO;
 import bc.desafio_spring.meli_social.dto.NewproductRequestDTO;
 import bc.desafio_spring.meli_social.dto.ProductListResponseDTO;
+import bc.desafio_spring.meli_social.dto.PromProductListResponseDTO;
 import bc.desafio_spring.meli_social.dto.PromProductsCountResponseDTO;
 import bc.desafio_spring.meli_social.services.ProductService;
+import bc.desafio_spring.meli_social.services.ProductServiceImpl;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
-    ProductService productService = new ProductService();
+    ProductService productService = new ProductServiceImpl();
 
     @PostMapping("/newpost")
     public ResponseEntity<String> newPost(@RequestBody NewproductRequestDTO newPost){
@@ -44,6 +46,10 @@ public class ProductController {
     }
     @GetMapping("{userId}/countPromo")
     public ResponseEntity<PromProductsCountResponseDTO> countPromProducts(@PathVariable UUID userId){
-        return ResponseEntity.status(200).body( productService.PromProdCount(userId));
+        return ResponseEntity.status(200).body( productService.promProdCount(userId));
+    }
+    @GetMapping("/products/{userId}/list")
+    public ResponseEntity<PromProductListResponseDTO> listPromProducts(@PathVariable UUID userId){
+        return ResponseEntity.status(200).body(productService.listFollowedPromProducts(userId));
     }
 }
