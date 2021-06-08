@@ -18,7 +18,6 @@ import bc.desafio_spring.meli_social.models.Seller;
 import bc.desafio_spring.meli_social.repositories.BuyerRepository;
 import bc.desafio_spring.meli_social.repositories.SellerRepository;
 
-import bc.desafio_spring.meli_social.exceptions.CannotFollowBuyerException;
 
 @Service
 public class UserServiceImpl implements UserService{
