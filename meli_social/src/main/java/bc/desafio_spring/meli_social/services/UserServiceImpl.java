@@ -12,11 +12,13 @@ import bc.desafio_spring.meli_social.dto.CreateBuyerRequestDTO;
 import bc.desafio_spring.meli_social.dto.FollowersCountResponseDTO;
 import bc.desafio_spring.meli_social.dto.FollowersListResponseDTO;
 import bc.desafio_spring.meli_social.dto.FollowingListResponseDTO;
+import bc.desafio_spring.meli_social.exceptions.CannotFollowBuyerException;
 import bc.desafio_spring.meli_social.models.Buyer;
 import bc.desafio_spring.meli_social.models.Seller;
 import bc.desafio_spring.meli_social.repositories.BuyerRepository;
 import bc.desafio_spring.meli_social.repositories.SellerRepository;
 
+import bc.desafio_spring.meli_social.exceptions.CannotFollowBuyerException;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -41,6 +43,10 @@ public class UserServiceImpl implements UserService{
         
 
         Optional<Seller> optSeller = sellerRepository.findById(idSeller);
+
+        if(!optFollower.isEmpty())
+            throw new CannotFollowBuyerException(idSeller);
+
         Seller seller = optSeller.get();
 
         seller.getBuyerSet().add(follower);

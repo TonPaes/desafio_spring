@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.UUID;
 
 import bc.desafio_spring.meli_social.dto.*;
+import bc.desafio_spring.meli_social.services.UserService;
 import bc.desafio_spring.meli_social.services.UserServiceImpl;
 
 

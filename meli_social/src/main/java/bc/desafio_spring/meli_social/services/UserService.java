@@ -6,9 +6,10 @@ import bc.desafio_spring.meli_social.dto.CreateBuyerRequestDTO;
 import bc.desafio_spring.meli_social.dto.FollowersCountResponseDTO;
 import bc.desafio_spring.meli_social.dto.FollowersListResponseDTO;
 import bc.desafio_spring.meli_social.dto.FollowingListResponseDTO;
+import bc.desafio_spring.meli_social.exceptions.CannotFollowBuyerException;
 
 public interface UserService {
-    public boolean follow(UUID idFollower, UUID idSeeller);
+    public boolean follow(UUID idFollower, UUID idSeeller) throws CannotFollowBuyerException;
     public UUID createBuyer(CreateBuyerRequestDTO createBuyerRequestDTO);
     public UUID createSeller(CreateBuyerRequestDTO createBuyerRequestDTO);
     public FollowersCountResponseDTO countFollowers(UUID sellerID);
